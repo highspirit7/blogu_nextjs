@@ -9,11 +9,14 @@ import PageLayout from "components/PageLayout";
 import CardItem from "components/CardItem";
 import CardListItem from "components/CardListItem";
 
-export default function Home() {
+import { getAllBlogs } from "lib/api";
+
+export default function Home({ blogs }) {
   return (
     <PageLayout>
       <AuthorIntro />
-
+      <hr />
+      {JSON.stringify(blogs)}
       <div className={`page-wrapper`}>
         <Row className="mb-5">
           <Col md="10">
@@ -27,4 +30,13 @@ export default function Home() {
       </div>
     </PageLayout>
   );
+}
+
+export async function getStaticProps() {
+  const blogs = await getAllBlogs();
+  return {
+    props: {
+      blogs,
+    },
+  };
 }
