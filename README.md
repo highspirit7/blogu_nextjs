@@ -1,4 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and this project uses [Sanity](https://www.sanity.io/) as CMS.
+
+## environment set up for Sanity
+
+create .env.local file in root folder with values of
+
+```
+SANITY_DATASET_NAME=YOUR_DATASET_NAME // from sanity dashboard
+SANITY_PROJECT_ID=YOUR_PROJECT_ID // from sanity dashboard
+SANITY_PREVIEW_SECRET=YOUR_PREVIEW_SECRET // unique string
+SANITY_API_TOKEN=YOUR_API_TOKEN // from sanity dashboard
+```
 
 ## Getting Started
 
