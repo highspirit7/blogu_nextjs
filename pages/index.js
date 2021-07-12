@@ -15,7 +15,7 @@ import { useGetBlogsPages } from "actions/pagination";
 import { getPaginatedBlogs } from "lib/api";
 import moment from "moment";
 
-export const BlogList = ({ data = [], filter, isLoadingMore }) => {
+export const BlogList = ({ data = [], filter }) => {
   return data.map((blog) =>
     filter.view.list ? (
       <Col key={`${blog.slug}-list`} md="9">
@@ -55,7 +55,7 @@ export default function Home({ blogs, preview }) {
     useGetBlogsPages({ filter });
 
   if (error) return <h1>Something went wrong!</h1>;
-  if (!posts) return <h1>Loading...</h1>;
+  // if (!posts) return <h1>Loading...</h1>;
 
   return (
     <PageLayout>
