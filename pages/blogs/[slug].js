@@ -55,9 +55,13 @@ const BlogDetail = ({ blog, preview }) => {
  */
 export async function getStaticProps({ params, preview = false, previewData }) {
   const blog = await getBlogBySlug(params.slug, preview);
-
+  /**
+   * reference
+   * https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration
+   */
   return {
     props: { blog, preview },
+    revalidate: 1,
   };
 }
 
