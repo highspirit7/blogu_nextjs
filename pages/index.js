@@ -71,42 +71,25 @@ export default function Home({ blogs, preview }) {
       <hr />
       <div className={`page-wrapper`}>
         <Row className="mb-5">
-          <BlogList
-            data={posts || [blogs]}
-            filter={filter}
-            isLoadingMore={isLoadingMore}
-          />
+          {/* 처음 접속 시 SSG로 생성된 블로그들을 보여주기 위한 구조 */}
+          {blogs.length > posts.length ? (
+            <BlogList data={blogs} filter={filter} />
+          ) : (
+            <BlogList data={posts} filter={filter} />
+          )}
         </Row>
-        {isLoadingMore ? (
-          <Row className="mb-5">
-            {Array(3)
-              .fill(0)
-              .map((_, i) =>
-                filter.view.list ? (
-                  <Col key={i} md="9">
-                    <CardListItemSkeleton />
-                  </Col>
-                ) : (
-                  <Col key={`${i}-item`} md="4">
-                    <CardItemSkeleton />
-                  </Col>
-                ),
-              )}
-          </Row>
-        ) : (
-          <div style={{ textAlign: "center" }}>
-            <Button
-              onClick={() => {
-                setSize(size + 1);
-              }}
-              disabled={isReachingEnd}
-              size="lg"
-              variant="outline-secondary"
-            >
-              {isReachingEnd ? "No more blogs" : "Load more"}
-            </Button>
-          </div>
-        )}
+        <div style={{ textAlign: "center" }}>
+          <Button
+            onClick={() => {
+              setSize(size + 1);
+            }}
+            disabled={isReachingEnd}
+            size="lg"
+            variant="outline-secondary"
+          >
+            {isReachingEnd ? "No more blogs" : "Load more"}
+          </Button>
+        </div>
       </div>
     </PageLayout>
   );
