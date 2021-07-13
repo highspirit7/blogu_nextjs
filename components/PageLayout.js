@@ -8,9 +8,10 @@ export default function PageLayout({ children, className }) {
   return (
     <div className={theme.type}>
       <Head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-          href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
           rel="stylesheet"
         />
       </Head>
