@@ -51,8 +51,15 @@ export const BlogList = ({ data = [], filter }) => {
 export default function Home({ blogs, preview }) {
   const [filter, setFilter] = useState({ view: { list: 0 }, date: { asc: 0 } });
   // const [offset, setOffset] = useState(0);
-  const { error, size, setSize, posts, isLoadingMore, isReachingEnd } =
-    useGetBlogsPages({ filter });
+  const {
+    error,
+    size,
+    setSize,
+    posts,
+    isLoadingMore,
+    isReachingEnd,
+    isValidating,
+  } = useGetBlogsPages({ filter });
 
   if (error) return <h1>Something went wrong!</h1>;
   // if (!posts) return <h1>Loading...</h1>;
@@ -77,6 +84,21 @@ export default function Home({ blogs, preview }) {
           ) : (
             <BlogList data={posts} filter={filter} />
           )}
+          {/* 아래와 같이 스켈레톤 넣으면 date로 sorting 변경 할 때는 현재 보고 있는 블로그 포스팅 숫자에서 3개가 더 스켈레톤이 생겼다가 다시 사라지게 된다. 나중에 date 정렬 기능은 없앨 계획이라 일단 이렇게 내버려두기로 함. */}
+          {isValidating &&
+            Array(3)
+              .fill(0)
+              .map((_, i) =>
+                filter.view.list ? (
+                  <Col key={i} md="9">
+                    <CardListItemSkeleton />
+                  </Col>
+                ) : (
+                  <Col key={`${i}-item`} lg="4" md="6">
+                    <CardItemSkeleton />
+                  </Col>
+                ),
+              )}
         </Row>
         <div style={{ textAlign: "center" }}>
           <Button

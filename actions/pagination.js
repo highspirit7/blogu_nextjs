@@ -4,7 +4,7 @@ import { getBlogs } from "actions";
 export const useGetBlogsPages = ({ filter }) => {
   const PAGE_LIMIT = 3;
 
-  const { data, error, size, setSize } = useSWRInfinite(
+  const { data, error, size, setSize, isValidating } = useSWRInfinite(
     (index, previousPageData) => {
       // console.log(`offset : ${offset}`);
       if (index === 0) {
@@ -34,5 +34,13 @@ export const useGetBlogsPages = ({ filter }) => {
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.length < PAGE_LIMIT);
 
-  return { posts, error, isLoadingMore, size, setSize, isReachingEnd };
+  return {
+    posts,
+    error,
+    isLoadingMore,
+    size,
+    setSize,
+    isReachingEnd,
+    isValidating,
+  };
 };
