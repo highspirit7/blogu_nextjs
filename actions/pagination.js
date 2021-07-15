@@ -22,6 +22,7 @@ export const useGetBlogsPages = ({ filter }) => {
       }`;
     },
     getBlogs,
+    { persistSize: true },
   );
 
   const posts = data ? [].concat(...data) : [];
