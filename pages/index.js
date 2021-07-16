@@ -78,12 +78,7 @@ export default function Home({ blogs, preview }) {
       <hr />
       <div className={`page-wrapper`}>
         <Row className="mb-5">
-          {/* 처음 접속 시 SSG로 생성된 블로그들을 보여주기 위한 구조 */}
-          {blogs.length > posts.length ? (
-            <BlogList data={blogs} filter={filter} />
-          ) : (
-            <BlogList data={posts} filter={filter} />
-          )}
+          <BlogList data={posts || blogs} filter={filter} />
           {/* 아래와 같이 스켈레톤 넣으면 date로 sorting 변경 할 때는 현재 보고 있는 블로그 포스팅 숫자에서 3개가 더 스켈레톤이 생겼다가 다시 사라지게 된다. 나중에 date 정렬 기능은 없앨 계획이라 일단 이렇게 내버려두기로 함. */}
           {isValidating &&
             Array(3)
