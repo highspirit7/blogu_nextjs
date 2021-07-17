@@ -13,12 +13,12 @@ const ViewChangeButton = ({ onChange, filter }) => {
         size="2x"
         onClick={() => onChange("view", { list: +!filter.view.list })}
       />
-      <FontAwesomeIcon
+      {/* <FontAwesomeIcon
         className="clickable hoverable"
         size="2x"
         icon={DATE_FILTERING_ICONS[filter.date.asc]}
         onClick={() => onChange("date", { asc: +!filter.date.asc })}
-      />
+      /> */}
     </div>
   );
 };

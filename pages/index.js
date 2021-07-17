@@ -10,6 +10,7 @@ import ViewChangeButton from "components/ViewChangeButton";
 import CardItemSkeleton from "components/CardItemSkeleton";
 import CardListItemSkeleton from "components/CardListItemSkeleton";
 import PreviewAlert from "components/PreviewAlert";
+import Categories from "components/Categories";
 
 import { useGetBlogsPages } from "actions/pagination";
 import { getPaginatedBlogs } from "lib/api";
@@ -18,22 +19,19 @@ import moment from "moment";
 export const BlogList = ({ data = [], filter }) => {
   return data.map((blog) =>
     filter.view.list ? (
-      <Col key={`${blog.slug}-list`} md="9">
-        <CardListItem
-          author={blog.author}
-          title={blog.title}
-          subtitle={blog.subtitle}
-          date={moment(blog.date).format("LL")}
-          link={{
-            href: "/blogs/[slug]",
-            as: `/blogs/${blog.slug}`,
-          }}
-        />
-      </Col>
+      <CardListItem
+        key={`${blog.slug}-list`}
+        title={blog.title}
+        subtitle={blog.subtitle}
+        date={moment(blog.date).format("LL")}
+        link={{
+          href: "/blogs/[slug]",
+          as: `/blogs/${blog.slug}`,
+        }}
+      />
     ) : (
       <Col key={blog.slug} lg="4" md="6">
         <CardItem
-          author={blog.author}
           title={blog.title}
           subtitle={blog.subtitle}
           date={moment(blog.date).format("LL")}
@@ -49,7 +47,7 @@ export const BlogList = ({ data = [], filter }) => {
 };
 
 export default function Home({ blogs, preview }) {
-  const [filter, setFilter] = useState({ view: { list: 0 }, date: { asc: 0 } });
+  const [filter, setFilter] = useState({ view: { list: 1 }, date: { asc: 0 } });
   // const [offset, setOffset] = useState(0);
   const {
     error,
@@ -68,32 +66,38 @@ export default function Home({ blogs, preview }) {
     <PageLayout>
       {preview && <PreviewAlert />}
       <AuthorIntro />
-      <ViewChangeButton
+
+      {/* <ViewChangeButton
         filter={filter}
         onChange={(option, value) => {
           setFilter({ ...filter, [option]: value });
           setSize(size);
         }}
-      />
+      /> */}
       <hr />
       <div className={`page-wrapper`}>
         <Row className="mb-5">
-          <BlogList data={posts || blogs} filter={filter} />
-          {/* 아래와 같이 스켈레톤 넣으면 date로 sorting 변경 할 때는 현재 보고 있는 블로그 포스팅 숫자에서 3개가 더 스켈레톤이 생겼다가 다시 사라지게 된다. 나중에 date 정렬 기능은 없앨 계획이라 일단 이렇게 내버려두기로 함. */}
-          {isValidating &&
-            Array(3)
-              .fill(0)
-              .map((_, i) =>
-                filter.view.list ? (
-                  <Col key={i} md="9">
-                    <CardListItemSkeleton />
-                  </Col>
-                ) : (
-                  <Col key={`${i}-item`} lg="4" md="6">
-                    <CardItemSkeleton />
-                  </Col>
-                ),
-              )}
+          <Col md="3">
+            <Categories />
+          </Col>
+          <Col md="9">
+            <BlogList data={posts || blogs} filter={filter} />
+            {/* 아래와 같이 스켈레톤 넣으면 date로 sorting 변경 할 때는 현재 보고 있는 블로그 포스팅 숫자에서 3개가 더 스켈레톤이 생겼다가 다시 사라지게 된다. 나중에 date 정렬 기능은 없앨 계획이라 일단 이렇게 내버려두기로 함. */}
+            {isValidating &&
+              Array(3)
+                .fill(0)
+                .map((_, i) =>
+                  filter.view.list ? (
+                    <Col key={i} md="9">
+                      <CardListItemSkeleton />
+                    </Col>
+                  ) : (
+                    <Col key={`${i}-item`} lg="4" md="6">
+                      <CardItemSkeleton />
+                    </Col>
+                  ),
+                )}
+          </Col>
         </Row>
         <div style={{ textAlign: "center" }}>
           <Button
