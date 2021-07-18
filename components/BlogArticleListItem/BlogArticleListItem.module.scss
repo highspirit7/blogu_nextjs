@@ -1,0 +1,26 @@
+.article {
+  margin: 0 0 1rem 0;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+
+  .articleTitle {
+    font-size: 1.5rem;
+    color: black;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: none;
+      color: #007bff;
+    }
+  }
+
+  .articleSubtitle {
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+
+  .readMore {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}

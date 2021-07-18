@@ -8,23 +8,20 @@ export const useGetBlogsPages = ({ filter }) => {
     (index, previousPageData) => {
       // console.log(`offset : ${offset}`);
       if (index === 0) {
-        return `/api/blogs?offset=${index}&date=${
-          filter.date.asc ? "asc" : "desc"
-        }`;
+        return `/api/blogs?offset=${index}&category=${filter.category}`;
       }
 
       if (!previousPageData.length) {
         return null;
       }
 
-      return `/api/blogs?offset=${index * PAGE_LIMIT}&date=${
-        filter.date.asc ? "asc" : "desc"
+      return `/api/blogs?offset=${index * PAGE_LIMIT}&category=${
+        filter.category
       }`;
     },
     getBlogs,
     { persistSize: true },
   );
-
   const posts = data ? [].concat(...data) : [];
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =

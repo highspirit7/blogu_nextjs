@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import useSWR from "swr";
+import moment from "moment";
+import { withRouter } from "next/router";
 
 import AuthorIntro from "components/AuthorIntro";
 import PageLayout from "components/PageLayout";
@@ -10,44 +12,30 @@ import ViewChangeButton from "components/ViewChangeButton";
 import CardItemSkeleton from "components/CardItemSkeleton";
 import CardListItemSkeleton from "components/CardListItemSkeleton";
 import PreviewAlert from "components/PreviewAlert";
-import Categories from "components/Categories";
+import Categories from "components/Categories/Categories";
+import BlogArticleListItem from "components/BlogArticleListItem/BlogArticleListItem";
 
 import { useGetBlogsPages } from "actions/pagination";
-import { getPaginatedBlogs } from "lib/api";
-import moment from "moment";
+import { getPaginatedBlogs, getAllCategories } from "lib/api";
 
-export const BlogList = ({ data = [], filter }) => {
-  return data.map((blog) =>
-    filter.view.list ? (
-      <CardListItem
-        key={`${blog.slug}-list`}
-        title={blog.title}
-        subtitle={blog.subtitle}
-        date={moment(blog.date).format("LL")}
-        link={{
-          href: "/blogs/[slug]",
-          as: `/blogs/${blog.slug}`,
-        }}
-      />
-    ) : (
-      <Col key={blog.slug} lg="4" md="6">
-        <CardItem
-          title={blog.title}
-          subtitle={blog.subtitle}
-          date={moment(blog.date).format("LL")}
-          image={blog.coverImage}
-          link={{
-            href: "/blogs/[slug]",
-            as: `/blogs/${blog.slug}`,
-          }}
-        />
-      </Col>
-    ),
-  );
+export const BlogList = ({ data = [] }) => {
+  return data.map((blog) => (
+    <BlogArticleListItem
+      key={`${blog.slug}-list`}
+      title={blog.title}
+      subtitle={blog.subtitle}
+      date={moment(blog.date).format("LL")}
+      link={{
+        href: "/blogs/[slug]",
+        as: `/blogs/${blog.slug}`,
+      }}
+      image={blog.coverImage}
+    />
+  ));
 };
 
-export default function Home({ blogs, preview }) {
-  const [filter, setFilter] = useState({ view: { list: 1 }, date: { asc: 0 } });
+function Home({ blogs, preview, categories, router }) {
+  const [filter, setFilter] = useState({ category: "All" });
   // const [offset, setOffset] = useState(0);
   const {
     error,
@@ -61,7 +49,7 @@ export default function Home({ blogs, preview }) {
 
   if (error) return <h1>Something went wrong!</h1>;
   // if (!posts) return <h1>Loading...</h1>;
-
+  if (categories[0].title !== "All") categories.unshift({ title: "All" });
   return (
     <PageLayout>
       {preview && <PreviewAlert />}
@@ -78,12 +66,16 @@ export default function Home({ blogs, preview }) {
       <div className={`page-wrapper`}>
         <Row className="mb-5">
           <Col md="3">
-            <Categories />
+            <Categories
+              categories={categories}
+              setFilter={setFilter}
+              setPageSize={setSize}
+            />
           </Col>
           <Col md="9">
-            <BlogList data={posts || blogs} filter={filter} />
+            <BlogList data={posts || blogs} />
             {/* 아래와 같이 스켈레톤 넣으면 date로 sorting 변경 할 때는 현재 보고 있는 블로그 포스팅 숫자에서 3개가 더 스켈레톤이 생겼다가 다시 사라지게 된다. 나중에 date 정렬 기능은 없앨 계획이라 일단 이렇게 내버려두기로 함. */}
-            {isValidating &&
+            {/* {isValidating &&
               Array(3)
                 .fill(0)
                 .map((_, i) =>
@@ -96,7 +88,7 @@ export default function Home({ blogs, preview }) {
                       <CardItemSkeleton />
                     </Col>
                   ),
-                )}
+                )} */}
           </Col>
         </Row>
         <div style={{ textAlign: "center" }}>
@@ -116,17 +108,23 @@ export default function Home({ blogs, preview }) {
   );
 }
 
+export default withRouter(Home);
+
 // Static Page
 // Faster, can be cached using CDN
 // Created at build time
 // When we making the request we are always receiving the same html document
 export async function getStaticProps({ preview = false }) {
-  const blogs = await getPaginatedBlogs({ offset: 0, date: "desc" });
-
+  const blogs = await getPaginatedBlogs({
+    offset: 0,
+    category: "All",
+  });
+  const categories = await getAllCategories();
   return {
     props: {
       blogs,
       preview,
+      categories,
     },
     revalidate: 1,
   };
