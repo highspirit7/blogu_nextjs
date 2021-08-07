@@ -12,11 +12,15 @@ import ViewChangeButton from "components/ViewChangeButton";
 import CardItemSkeleton from "components/CardItemSkeleton";
 import CardListItemSkeleton from "components/CardListItemSkeleton";
 import PreviewAlert from "components/PreviewAlert";
-import Categories from "components/Categories/Categories";
+import CategoryList from "components/Category/CategoryList/CategoryList";
 import BlogArticleListItem from "components/BlogArticleListItem/BlogArticleListItem";
 
 import { useGetBlogsPages } from "actions/pagination";
-import { getPaginatedBlogs, getAllCategories } from "lib/api";
+import {
+  getPaginatedBlogs,
+  getAllCategories,
+  getAllCategoriesOfBlogs,
+} from "lib/api";
 
 export const BlogList = ({ data = [] }) => {
   return data.map((blog) => (
@@ -49,7 +53,7 @@ function Home({ blogs, preview, categories, router }) {
 
   if (error) return <h1>Something went wrong!</h1>;
   // if (!posts) return <h1>Loading...</h1>;
-  if (categories[0].title !== "All") categories.unshift({ title: "All" });
+  // if (categories[0].title !== "All") categories.unshift({ title: "All" });
   return (
     <PageLayout>
       {preview && <PreviewAlert />}
@@ -66,7 +70,7 @@ function Home({ blogs, preview, categories, router }) {
       <div className={`page-wrapper`}>
         <Row className="mb-5">
           <Col md="3">
-            <Categories
+            <CategoryList
               categories={categories}
               setFilter={setFilter}
               setPageSize={setSize}
@@ -120,11 +124,30 @@ export async function getStaticProps({ preview = false }) {
     category: "All",
   });
   const categories = await getAllCategories();
+  const result = await getAllCategoriesOfBlogs();
+
+  const categoriesWithCount = categories.map((data) => {
+    return { ...data, count: 0 };
+  });
+
+  result.forEach((data) => {
+    const index = categoriesWithCount.findIndex(
+      (category) => category.title === data.category,
+    );
+    const { count } = categoriesWithCount[index];
+    categoriesWithCount[index].count = count + 1;
+    // console.log(
+    //   `category : ${categoriesWithCount} / count : ${categoriesWithCount[index].count}`,
+    // );
+  });
+
+  categoriesWithCount.unshift({ count: result.length, title: "All" });
+
   return {
     props: {
       blogs,
       preview,
-      categories,
+      categories: categoriesWithCount,
     },
     revalidate: 1,
   };

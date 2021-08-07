@@ -12,7 +12,7 @@ body {
   cursor: pointer;
 }
 
-.hoverable:hover { 
+.hoverable:hover {
   opacity: 0.7;
 }
 
@@ -295,33 +295,49 @@ body {
   }
 }
 
-.dark {
-  .card.fj-card {
-    background-color: #232129;
-    transition: color 0s ease-out 0s, background 0.2s ease-out 0s;
-    .card-body-wrapper {
-      background-color: #232129;
-      transition: color 0s ease-out 0s, background 0.2s ease-out 0s;
-    }
+.category-list-wrapper {
+  .title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
 
-    .card-button {
-      background-color: #9b5f5f;
+  .category-item {
+    list-style-type: none;
+    margin-bottom: 0.25rem;
+
+    a {
+      color: #007a50;
+      font-weight: 400;
+    }
+  }
+}
+
+.article {
+  margin: 0 0 1rem 0;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+
+  .article-title {
+    font-size: 1.5rem;
+    color: black;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: none;
+      color: #6dd069;
     }
   }
 
-  .fj-navbar.fj-nav-base {
-    width: 100%;
-    padding: 20px 0px;
+  .article-subtitle {
+    max-width: 100%;
+    word-wrap: break-word;
+  }
 
-    .fj-navbar {
-      &-brand {
-        // color: #ffffff;
-      }
-
-      &-link {
-        color: #ffffff;
-      }
-    }
+  .read-more {
+    color: #007a50;
+    font-size: 1rem;
+    font-weight: bold;
   }
 }
 
@@ -332,36 +348,6 @@ body {
 
   a {
     color: #63696e;
-  }
-}
-
-.dark {
-  .card.fj-card {
-    background-color: #232129;
-    transition: color 0s ease-out 0s, background 0.2s ease-out 0s;
-    .card-body-wrapper {
-      background-color: #232129;
-      transition: color 0s ease-out 0s, background 0.2s ease-out 0s;
-    }
-
-    .card-button {
-      background-color: #9b5f5f;
-    }
-  }
-
-  .fj-navbar.fj-nav-base {
-    width: 100%;
-    padding: 20px 0px;
-
-    .fj-navbar {
-      &-brand {
-        color: #ffffff;
-      }
-
-      &-link {
-        color: #ffffff;
-      }
-    }
   }
 }
 
@@ -421,4 +407,60 @@ blockquote {
   background-position: 0 0;
   background-origin: border-box;
   background-size: 2em;
+}
+
+// 다크 모드용
+.dark {
+  .card.fj-card {
+    background-color: #232129;
+    transition: color 0s ease-out 0s, background 0.2s ease-out 0s;
+    .card-body-wrapper {
+      background-color: #232129;
+      transition: color 0s ease-out 0s, background 0.2s ease-out 0s;
+    }
+
+    .card-button {
+      background-color: #9b5f5f;
+    }
+  }
+
+  .fj-navbar.fj-nav-base {
+    width: 100%;
+    padding: 20px 0px;
+
+    .fj-navbar {
+      &-brand {
+        // color: #ffffff;
+      }
+
+      &-link {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .article {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+
+    .article-title {
+      color: #dee2e6;
+
+      &:hover {
+        color: #83ec79;
+      }
+    }
+
+    .read-more {
+      color: #6dd069;
+    }
+  }
+
+  .category-list-wrapper {
+    .category-item {
+      a {
+        color: #6dd069;
+      }
+    }
+  }
 }

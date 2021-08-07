@@ -8,7 +8,7 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 
-import { getAllBlogs, getBlogBySlug, urlFor, getPaginatedBlogs } from "lib/api";
+import { getBlogBySlug, urlFor, getPaginatedBlogs } from "lib/api";
 
 const BlogDetail = ({ blog, preview }) => {
   const router = useRouter();
