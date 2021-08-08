@@ -66,7 +66,7 @@ function Home({ blogs, preview, categories, router }) {
           setSize(size);
         }}
       /> */}
-      <hr />
+      <hr className="hr" />
       <div className={`page-wrapper`}>
         <Row className="mb-5">
           <Col md="3">
@@ -95,7 +95,7 @@ function Home({ blogs, preview, categories, router }) {
                 )} */}
           </Col>
         </Row>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" }} className="load-more-btn">
           <Button
             onClick={() => {
               setSize(size + 1);

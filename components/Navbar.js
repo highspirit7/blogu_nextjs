@@ -9,18 +9,18 @@ const BlogNavbar = ({ theme, toggleTheme }) => {
       variant={theme.type}
       className="fj-navbar fj-nav-base"
       bg="transparent"
-      expand="lg"
+      expand="sm"
     >
       <Navbar.Brand className="fj-navbar-brand">
         <Link href="/">
-          <a style={{ color: theme.fontColor }}>GrownUprince</a>
+          <a style={{ color: theme.navbarBrand }}>GrownUprince</a>
         </Link>
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <ThemeToggle onChange={toggleTheme} />
+      {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          {/* <div></div> */}
-          <ThemeToggle onChange={toggleTheme} />
           <Nav.Link
             as={() => (
               <Link href="/">
@@ -29,7 +29,7 @@ const BlogNavbar = ({ theme, toggleTheme }) => {
             )}
           />
         </Nav>
-      </Navbar.Collapse>
+      </Navbar.Collapse> */}
     </Navbar>
   );
 };

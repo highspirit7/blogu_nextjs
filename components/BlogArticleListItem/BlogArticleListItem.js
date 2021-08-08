@@ -6,7 +6,7 @@ const BlogArticleListItem = ({ title, subtitle, date, link, image }) => {
   return (
     <Row className="article">
       {image && (
-        <Col md="3" className="pt-4 pb-4">
+        <Col md="3" className="pt-4 pb-4 article-image-wrapper">
           <div>
             <img
               alt={`${title}_thumbnail_image`}
@@ -23,7 +23,7 @@ const BlogArticleListItem = ({ title, subtitle, date, link, image }) => {
       )}
 
       <Col
-        md={image ? "9" : "12"}
+        lg={image ? "9" : "12"}
         className="pt-4 pb-4 d-flex flex-column justify-content-around"
       >
         <Link {...link}>

@@ -32,7 +32,7 @@ const BlogDetail = ({ blog, preview }) => {
   return (
     <PageLayout className="blog-detail-page">
       <Row>
-        <Col md={{ span: 10, offset: 1 }}>
+        <Col lg={{ span: 10, offset: 1 }}>
           {preview && <PreviewAlert />}
           <BlogHeader
             title={blog.title}

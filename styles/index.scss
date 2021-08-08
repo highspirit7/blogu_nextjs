@@ -21,7 +21,14 @@ body {
 }
 
 .page-wrapper {
-  padding-top: 20px;
+  padding: 20px 0;
+}
+
+.hr {
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
 }
 
 .card.fj-card {
@@ -160,6 +167,7 @@ body {
 .fj-navbar.fj-nav-base {
   width: 100%;
   padding: 20px 0px;
+  justify-content: space-between;
 
   .fj-navbar {
     &-brand {
@@ -169,8 +177,11 @@ body {
       letter-spacing: 1px;
       font-weight: bold;
 
+      @media screen and (max-width: 575px) {
+        font-size: 20px;
+      }
+
       a {
-        // color: #40d65c;
         font-weight: 900;
       }
     }
@@ -211,6 +222,10 @@ body {
       margin-left: 10px;
       margin-right: 10px;
     }
+  }
+
+  .navbar-toggler {
+    border-color: transparent;
   }
 }
 
@@ -283,15 +298,38 @@ body {
     .lead {
       font-size: 17px;
     }
+
     &-title {
-      font-size: 52px;
+      font-size: 30px;
+
+      @media screen and (min-width: 576px) {
+        font-size: 30px;
+      }
+      @media screen and (min-width: 992px) {
+        font-size: 40px;
+      }
+    }
+
+    &-subtitle {
+      font-size: 22px;
+      font-weight: 300;
+      @media screen and (min-width: 576px) {
+        font-size: 22px;
+      }
+      @media screen and (min-width: 992px) {
+        font-size: 30px;
+      }
     }
   }
 }
 
 .admin-intro {
   .welcome-text {
-    font-size: 18px;
+    font-size: 16px;
+
+    @media screen and (min-width: 576px) {
+      font-size: 18px;
+    }
   }
 }
 
@@ -300,15 +338,28 @@ body {
     font-weight: bold;
     font-size: 1.25rem;
     margin-bottom: 1rem;
+
+    display: none;
+    @media screen and (min-width: 768px) {
+      display: block;
+    }
   }
 
-  .category-item {
-    list-style-type: none;
-    margin-bottom: 0.25rem;
+  ul {
+    display: flex;
+    justify-content: space-around;
+    @media screen and (min-width: 768px) {
+      display: block;
+    }
 
-    a {
-      color: #007a50;
-      font-weight: 400;
+    .category-item {
+      list-style-type: none;
+      margin-bottom: 0.25rem;
+
+      a {
+        color: #007a50;
+        font-weight: 400;
+      }
     }
   }
 }
@@ -339,12 +390,23 @@ body {
     font-size: 1rem;
     font-weight: bold;
   }
+
+  &-image-wrapper {
+    display: none;
+    @media screen and (min-width: 992px) {
+      display: inline;
+    }
+  }
 }
 
 .page-footer {
-  padding: 40px;
+  padding: 20px;
   font-size: 20px;
   text-align: center;
+
+  @media screen and (min-width: 768px) {
+    padding: 40px;
+  }
 
   a {
     color: #63696e;
@@ -409,6 +471,15 @@ blockquote {
   background-size: 2em;
 }
 
+.load-more-btn {
+  button {
+    font-size: 1rem;
+    @media screen and (min-width: 576px) {
+      font-size: 1.25rem;
+    }
+  }
+}
+
 // 다크 모드용
 .dark {
   .card.fj-card {
@@ -462,5 +533,11 @@ blockquote {
         color: #6dd069;
       }
     }
+  }
+
+  .blog-detail-page {
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    // border-radius: 8px;
   }
 }
