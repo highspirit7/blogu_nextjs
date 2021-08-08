@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap";
 import Head from "next/head";
 import Navbar from "./Navbar";
+import Footer from "../components/Footer";
 import { useTheme } from "providers/ThemeProvider";
 
 export default function PageLayout({ children, className }) {
@@ -22,15 +23,7 @@ export default function PageLayout({ children, className }) {
       <Container className="d-flex flex-column" style={{ height: "100vh" }}>
         <Navbar theme={theme} toggleTheme={toggleTheme} />
         <div className={`page-wrapper ${className}`}>{children}</div>
-        <footer className="page-footer">
-          <div>
-            <a href="#">courses</a>
-            {" | "}
-            <a href="#">github</a>
-            {" | "}
-            <a href="#">facebook</a>
-          </div>
-        </footer>
+        <Footer />
       </Container>
       <style jsx global>{`
         html,
