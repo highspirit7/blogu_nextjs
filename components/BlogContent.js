@@ -15,6 +15,20 @@ const serializers = {
         </div>
       );
     },
+    break: (props) => {
+      const { style } = props.node;
+      if (style === "break") {
+        return <br />;
+      }
+      // if (readMore && style === "readMore") {
+      //   return (
+      //     <div className="readMore">
+      //       <button onClick={() => setReadMore(false)}>Read More</button>
+      //     </div>
+      //   );
+      // }
+      return null;
+    },
   },
 };
 
