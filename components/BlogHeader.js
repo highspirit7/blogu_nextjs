@@ -7,13 +7,15 @@ export default function BlogHeader({ title, subtitle, coverImage, date }) {
       </h1>
       <h2 className="blog-detail-header-subtitle mb-3">{subtitle}</h2>
 
-      {coverImage && (
-        <img
-          className="img-fluid rounded"
-          src={coverImage}
-          alt="TODO: provide alt"
-        />
-      )}
+      <div className="w-100 text-center">
+        {coverImage && (
+          <img
+            className="img-fluid rounded"
+            src={coverImage}
+            alt="TODO: provide alt"
+          />
+        )}
+      </div>
     </div>
   );
 }
