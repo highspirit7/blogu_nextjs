@@ -17,8 +17,18 @@ const serializers = {
     },
     break: (props) => {
       const { style } = props.node;
-      if (style === "break") {
+
+      if (style === "lineBreak") {
+        return <hr className="lineBreak" />;
+      } else if (style === "break") {
         return <br />;
+      } else if (style === "doubleBreak") {
+        return (
+          <>
+            <br />
+            <br />
+          </>
+        );
       }
       // if (readMore && style === "readMore") {
       //   return (

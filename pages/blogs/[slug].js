@@ -40,7 +40,7 @@ const BlogDetail = ({ blog, preview }) => {
             coverImage={urlFor(blog.coverImage).height(600).url()}
             date={moment(blog.date).format("LL")}
           />
-          <hr />
+          <br />
           {blog.content && <BlogContent content={blog.content} />}
         </Col>
       </Row>
